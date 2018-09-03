@@ -1,0 +1,8 @@
+- name: build image
+  docker_image:
+    dockerfile: "{{ item|basename }}"
+    name: "{{ test_playground.image_name }}"
+    path: "{{ item|dirname }}"
+    state: build
+    tag: "{{ item|basename|splitext|first }}"
+  loop: "{{ query('fileglob', '*.dockerfile') }}"

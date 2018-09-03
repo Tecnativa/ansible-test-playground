@@ -1,0 +1,13 @@
+# Never override variables here
+test_playground_defaults:
+  build: false
+  container_name_prefix: test-playground-server-
+  deployment:
+    - tag: centos-7
+    - tag: debian-8
+    - tag: debian-9
+    - tag: ubuntu-16.04
+    - tag: ubuntu-18.04
+  image_name: tecnativa/ansible-test-playground
+  inventory_output: /tmp/test-playground.cfg
+  state: present

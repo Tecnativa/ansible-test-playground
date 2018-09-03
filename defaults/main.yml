@@ -1,0 +1,2 @@
+# Override at will, see defaults in ../vars/main.yml
+test_playground_custom: {}
