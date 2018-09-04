@@ -19,7 +19,28 @@ available variables.
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+First of all, define an `inventory.cfg` file with, at least, the controller
+host (usually `localhost`) and the expected playground to create:
+
+```cfg
+# The playground will be created from here, so this host must be properly
+# configured to access a docker socket; privileged access is required
+[test-playground-controller]
+localhost ansible_connection=local ansible_python_interpreter=python3
+
+# This group defines the expected playground, that will be created from the
+# controller node
+[test-playground]
+centos-7 test_playground_tag=centos-7
+debian-8 test_playground_tag=debian-8
+debian-9 test_playground_tag=debian-9
+ubuntu-16.04 test_playground_tag=ubuntu-16.04
+ubuntu-18.04 test_playground_tag=ubuntu-18.04
+
+# It is a requirement that playground hosts are connected via docker
+[test-playground:vars]
+ansible_connection=docker
+```
 
     - hosts: servers
       roles:
