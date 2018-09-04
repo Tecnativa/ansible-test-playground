@@ -1,12 +1,14 @@
-Role Name
-=========
+Ansible Test Playground
+=======================
 
-A brief description of the role goes here.
+This role deploys a desired inventory using systemd-enabled docker images for
+different supported OS, so you can test your roles.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- `pip install -r requirements.txt`
+- A running Docker daemon.
 
 Role Variables
 --------------
