@@ -1,0 +1,9 @@
+- hosts: test-playground-controller
+  roles:
+    - role: ../..
+
+- hosts: all
+  tasks:
+    - name: detected operating system
+      debug:
+        msg: "{{ ansible_distribution }} {{ ansible_distribution_version }}"

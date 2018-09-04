@@ -1,0 +1,14 @@
+- hosts: localhost
+  vars:
+    ansible_connection: local
+    ansible_python_interpreter: python3
+  tasks:
+    - name: build image
+      docker_image:
+        dockerfile: "{{ item|basename }}"
+        force: true
+        name: "{{ test_playground_image }}"
+        path: "{{ item|dirname }}"
+        state: build
+        tag: "{{ item|basename|splitext|first }}"
+      loop: "{{ query('fileglob', 'files/*.dockerfile') }}"
