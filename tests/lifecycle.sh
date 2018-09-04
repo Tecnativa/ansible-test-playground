@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -ex
+set -e
 cd $(dirname $0)
 output=$(mktemp)
 
@@ -9,7 +9,7 @@ _run () {
 
 _no_changes () {
   local recap="$(grep -A 9999 'PLAY RECAP' $output | tail -n +2 -)"
-  match="$(echo "$recap" | grep -v 'changed=0')"
+  match="$(echo "$recap" | grep -v 'changed=0' || true)"
   if [ -n "$match" ]; then
     echo === Found unexpected lines with changes: ===
     echo "$match"
