@@ -2,9 +2,15 @@ sudo: required
 language: python
 python:
   - "3.6"
+addons:
+  apt:
+    packages:
+      - expect
 services:
   - docker
 install:
   - pip install -r requirements.txt
+after_install:
+  - ansible-playbook build/build.yml
 script:
-  - ansible-playbook tests/test.yml -i inventory.cfg
+  - ./tests/lifecycle.sh

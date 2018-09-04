@@ -1,0 +1,5 @@
+- hosts: test-playground-controller
+  roles:
+    - role: ../..
+      vars:
+        test_playground_state: absent

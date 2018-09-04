@@ -1,5 +1,5 @@
-FROM ubuntu:18.04
-CMD [ "/sbin/init" ]
+FROM debian:9
+CMD [ "/bin/systemd" ]
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     python \

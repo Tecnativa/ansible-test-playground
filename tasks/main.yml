@@ -1,13 +1,18 @@
-- name: get ansible test playground configuration
-  set_fact:
-    test_playground: "{{
-      test_playground_defaults|combine(
-        test_playground_custom,
-        recursive=True,
-      )
-    }}"
+- name: make sure docker connection is configured
+  assert:
+    that: "{{ hostvars[item].ansible_connection == 'docker' }}"
+    msg: test playground hosts must have ansible_connection=docker
+  loop: "{{ query('inventory_hostnames', test_playground_hosts) }}"
 
-- import_tasks: build.yml
-  when: test_playground.build
-
-- import_tasks: deployment.yml
+- name: enforce test playground container state
+  docker_container:
+    capabilities: [SYS_ADMIN]
+    image: "{{ item.test_playground_image|d(test_playground_image) }}:
+            {{- item.test_playground_tag|d(test_playground_tag) }}"
+    name: "{{ item.inventory_hostname }}"
+    state: "{{ item.test_playground_state|d(test_playground_state) }}"
+    volumes: /sys/fs/cgroup:/sys/fs/cgroup:ro
+  loop: "{{
+    query('inventory_hostnames', test_playground_hosts)|
+    map('extract', hostvars)|list
+  }}"
