@@ -1,4 +1,5 @@
-# Ansible host pattern matching the hosts that should be deployed
+# Ansible host pattern matching the hosts that should be deployed; see
+# https://docs.ansible.com/ansible/latest/user_guide/intro_patterns.html
 test_playground_hosts: test-playground
 
 # Docker image to deploy
