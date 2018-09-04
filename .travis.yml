@@ -5,7 +5,7 @@ python:
 addons:
   apt:
     packages:
-      - expect
+      - expect-dev
 services:
   - docker
 install:
