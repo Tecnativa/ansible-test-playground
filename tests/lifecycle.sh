@@ -7,34 +7,26 @@ _run () {
   unbuffer ansible-playbook $1 -i inventory.cfg | tee $output
 }
 
-_changed () {
-  local arg=
-  local with=without
+_no_changes () {
   local recap="$(grep -A 9999 'PLAY RECAP' $output | tail -n +2 -)"
-  if [ "$1" -eq 0 ]; then
-    arg=--invert-match
-    with=with
-  fi
-  match="$(echo "$recap" | grep $arg 'changed=0')"
+  match="$(echo "$recap" | grep -v 'changed=0')"
   if [ -n "$match" ]; then
-    echo === Found unexpected lines $with changes: ===
-    echo $match
+    echo === Found unexpected lines with changes: ===
+    echo "$match"
     return 1
   fi
 }
 
-echo === Creating, changes expected ===
+echo === Creating ===
 _run create.yml
-_changed 1
 
 echo === Creating again, no changes expected ===
 _run create.yml
-_changed 0
+_no_changes
 
-echo === Destroying, changes expected ===
+echo === Destroying ===
 _run destroy.yml
-_changed 1
 
 echo === Destroying again, no changes expected ===
 _run destroy.yml
-_changed 0
+_no_changes

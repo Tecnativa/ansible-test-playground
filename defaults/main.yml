@@ -1,4 +1,12 @@
+# Ansible host pattern matching the hosts that should be deployed
 test_playground_hosts: test-playground
+
+# Docker image to deploy
 test_playground_image: tecnativa/ansible-test-playground
+
+# Set to 'absent' to destroy the playground
 test_playground_state: started
+
+# Use any supported OS tag from
+# https://hub.docker.com/r/tecnativa/ansible-test-playground/tags/
 test_playground_tag: ubuntu-18.04
