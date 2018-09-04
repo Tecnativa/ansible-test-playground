@@ -1,5 +1,7 @@
 # Ansible Test Playground
 
+[![Build Status](https://travis-ci.org/Tecnativa/ansible-test-playground.svg?branch=master)](https://travis-ci.org/Tecnativa/ansible-test-playground)
+
 This role deploys a desired inventory using systemd-enabled docker images for
 different supported OS, so you can test your roles.
 
