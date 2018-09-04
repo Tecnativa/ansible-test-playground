@@ -1,6 +1,7 @@
 # Ansible Test Playground
 
 [![Build Status](https://travis-ci.org/Tecnativa/ansible-test-playground.svg?branch=master)](https://travis-ci.org/Tecnativa/ansible-test-playground)
+[![Docker Pulls](https://img.shields.io/docker/pulls/tecnativa/ansible-test-playground.svg)](https://hub.docker.com/r/tecnativa/ansible-test-playground)
 
 This role deploys a desired inventory using systemd-enabled docker images for
 different supported OS, so you can test your roles.
@@ -58,6 +59,6 @@ This project is maintained by:
 [Tecnativa][] is an IT consulting company specialized in Odoo and provides Odoo
 development, installation, maintenance and hosting services.
 
-[defaults]: https://github.com/Tecnativa/ansible-role-docker/tree/master/defaults/main.yml
-[inventory]: https://github.com/Tecnativa/ansible-role-docker/tree/master/tests/inventory.cfg
+[defaults]: https://github.com/Tecnativa/ansible-test-playground/tree/master/defaults/main.yml
+[inventory]: https://github.com/Tecnativa/ansible-test-playground/tree/master/tests/inventory.cfg
 [Tecnativa]: https://www.tecnativa.com/
