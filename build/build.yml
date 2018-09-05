@@ -12,3 +12,5 @@
         state: build
         tag: "{{ item|basename|splitext|first }}"
       loop: "{{ query('fileglob', 'files/*.dockerfile') }}"
+      async: 600
+      poll: 5
