@@ -13,4 +13,4 @@ script:
       -v /var/run/docker.sock:/var/run/docker.sock:ro
       -v $(pwd):/role:ro
       tecnativa/ansible-test-playground:lifecycle
-      apply.yml unapply.yml destroy.yml
+      create.yml destroy.yml
