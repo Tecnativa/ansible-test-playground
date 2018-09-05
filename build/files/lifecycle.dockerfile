@@ -12,6 +12,18 @@ ENV ANSIBLE_INVENTORY inventory.cfg
 # Mount your tested role in /role; it should have a ./tests folder
 WORKDIR /role/tests
 
-RUN apk --no-cache add docker expect fish python3 \
-  && pip3 install ansible docker
+# Add code and dependencies
+RUN apk --no-cache add \
+    expect \
+    fish \
+    libffi \
+    openssl \
+    python3
+RUN apk --no-cache add -t .build \
+    build-base \
+    libffi-dev \
+    openssl-dev \
+    python3-dev \
+  && pip3 --no-cache-dir install ansible docker \
+  && apk del .build
 COPY lifecycle /usr/local/bin/lifecycle
