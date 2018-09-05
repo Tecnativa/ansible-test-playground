@@ -109,10 +109,10 @@ services:
   - docker
 script:
   - docker container run --rm -it
-    -v /var/run/docker.sock:/var/run/docker.sock:ro \
-    -v $(pwd):/role:ro \
-    tecnativa/ansible-test-playground:lifecycle \
-    apply.yml unapply.yml destroy.yml
+      -v /var/run/docker.sock:/var/run/docker.sock:ro
+      -v $(pwd):/role:ro
+      tecnativa/ansible-test-playground:lifecycle
+      apply.yml unapply.yml destroy.yml
 ```
 
 [cfg]: https://docs.ansible.com/ansible/latest/reference_appendices/config.html
