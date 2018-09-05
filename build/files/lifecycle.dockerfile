@@ -16,7 +16,6 @@ WORKDIR /role/tests
 RUN apk --no-cache add \
     docker \
     expect \
-    fish \
     libffi \
     openssl \
     python3
