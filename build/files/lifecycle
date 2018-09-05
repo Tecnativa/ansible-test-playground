@@ -4,7 +4,7 @@ set -e
 # Run playbook and store colorized output in a temporary file
 output="$(mktemp)"
 _run () {
-  unbuffer ansible-playbook -i inventory.cfg $argv | tee $output
+  unbuffer ansible-playbook -i inventory.cfg "$@" | tee $output
 }
 
 _no_changes () {
