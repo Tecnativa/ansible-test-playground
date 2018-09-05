@@ -1,0 +1,45 @@
+#!/usr/bin/env sh
+set -e
+
+# Run playbook and store colorized output in a temporary file
+output="$(mktemp)"
+_run () {
+  unbuffer ansible-playbook -i inventory.cfg "$@" | tee $output
+}
+
+_no_changes () {
+  # Use only the play results
+  local recap="$(grep -A 9999 'PLAY RECAP' $output | tail -n +2 -)"
+
+  # Search for changed!=0 lines
+  local match="$(echo "$recap" | grep -v 'changed=0' || true)"
+
+  # Fail if any line is found
+  if test -n "$match"; then
+    echo === Found unexpected lines with changes: ===
+    echo "$match"
+    return 1
+  fi
+}
+
+# Install dependencies
+if test -f requirements.txt; then
+  pip3 install -r requirements.txt
+fi
+for req in requirements.yml requirements.yaml; do
+  if test -f $req; then
+    ansible-galaxy install -r $req
+  fi
+done
+
+# Run twice each playbook
+for playbook in "$@"; do
+  for round in $(seq 1 "$TEST_ROUNDS"); do
+    echo === Running $playbook in round $round ===
+    _run $playbook -e "test_playground_round=$round"
+    if test "$round" -eq "$IDEMPOTENT_ROUND"; then
+      echo === Checking idempotence in round $round of $playbook ===
+      _no_changes
+    fi
+  done
+done
