@@ -1,10 +1,11 @@
 #!/usr/bin/env sh
 set -e
+set -o pipefail
 
 # Run playbook and store colorized output in a temporary file
 output="$(mktemp)"
 _run () {
-  unbuffer ansible-playbook -i inventory.cfg "$@" | tee $output
+  unbuffer ansible-playbook "$@" | tee $output
 }
 
 _no_changes () {
@@ -18,7 +19,7 @@ _no_changes () {
   if test -n "$match"; then
     echo === Found unexpected lines with changes: ===
     echo "$match"
-    return 1
+    exit 1
   fi
 }
 
