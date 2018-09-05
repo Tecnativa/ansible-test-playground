@@ -117,5 +117,3 @@ script:
 
 [cfg]: https://docs.ansible.com/ansible/latest/reference_appendices/config.html
 [lcdf]: https://github.com/Tecnativa/ansible-test-playground/blob/master/build/files/debian-9.dockerfile
-[roledir]: https://docs.ansible.com/ansible/2.6/user_guide/playbooks_reuse_roles.html#role-directory-structure
-[testdir]: https://github.com/Tecnativa/ansible-test-playground/tree/master/tests

@@ -36,3 +36,4 @@ development, installation, maintenance and hosting services.
 [defaults]: https://github.com/Tecnativa/ansible-test-playground/tree/master/defaults/main.yml
 [inventory]: https://github.com/Tecnativa/ansible-test-playground/tree/master/tests/inventory.cfg
 [Tecnativa]: https://www.tecnativa.com/
+[testdir]: https://github.com/Tecnativa/ansible-test-playground/tree/master/tests
