@@ -12,7 +12,7 @@ function _no_changes
   set -l recap (grep -A 9999 'PLAY RECAP' $output | tail -n +2 -)
 
   # Search for changed!=0 lines
-  set -l match (echo "$recap" | grep -v 'changed=0'; or true)
+  set -l match (echo "$recap" | grep -v 'changed=0')
 
   # Fail if any line is found
   if test -n "$match"
@@ -23,11 +23,11 @@ function _no_changes
 end
 
 # Install dependencies
-for req in (ls ../**/*requirements*.txt; or true)
+for req in (ls ../**/*requirements*.txt ^/dev/null)
   echo === Installing found dependency file (realpath $req) ===
   pip3 install -r $req
 end
-for req in (ls ../**/*requirements*.{yml,yaml}; or true)
+for req in (ls ../**/*requirements*.{yml,yaml} ^/dev/null)
   ansible-galaxy install -r $req
 end
 

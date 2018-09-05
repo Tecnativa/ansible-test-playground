@@ -14,6 +14,7 @@ WORKDIR /role/tests
 
 # Add code and dependencies
 RUN apk --no-cache add \
+    docker \
     expect \
     fish \
     libffi \
