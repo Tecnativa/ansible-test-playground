@@ -10,22 +10,18 @@
 
 - hosts: test-playground
   tasks:
-    - name: list systemd units
-      command: systemctl list-units
-      changed_when: false
-
     # Debian 8 and Ubuntu 16.04 need this
     - name: update apt cache
       apt:
         update_cache: true
       when:
         - ansible_pkg_mgr == 'apt'
-        - test_playground_round|d(1) == 1
+        - test_playground_round|d(1)|int == 1
 
     - name: install ssh server
       package:
         name: openssh-server
-        state: latest
+        state: present
 
     - name: start sshd service
       service:
