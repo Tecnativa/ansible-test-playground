@@ -7,3 +7,19 @@
     - name: detected operating system
       debug:
         msg: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
+
+- hosts: test-playground
+  tasks:
+    - name: list systemd units
+      command: systemctl list-units
+
+    - name: install ssh server
+      package:
+        name: openssh-server
+        state: latest
+
+    - name: start sshd service
+      service:
+        enabled: true
+        name: sshd
+        state: started

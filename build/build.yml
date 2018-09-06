@@ -9,6 +9,5 @@
         force: true
         name: "{{ test_playground_image }}"
         path: "{{ item|dirname }}"
-        state: build
         tag: "{{ item|basename|splitext|first }}"
       loop: "{{ query('fileglob', 'files/*.dockerfile') }}"
