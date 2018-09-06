@@ -16,7 +16,7 @@ systemctl mask \
   remote-fs.target \
   tmp.mount
 
-# Re-enable needed units
+# Reenable useful units
 systemctl unmask \
   systemd-journald.service \
   systemd-tmpfiles-setup.service
