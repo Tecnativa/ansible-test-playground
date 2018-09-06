@@ -8,8 +8,9 @@ RUN apt-get update \
     python3 \
     sudo \
     systemd \
-  && systemctl set-default multi-user.target \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean
 RUN useradd -mG sudo privileged \
   && useradd -m unprivileged
+COPY systemd-setup.sh /root/
+RUN /root/systemd-setup.sh
