@@ -9,8 +9,7 @@
     image: "{{ item.test_playground_image|d(test_playground_image) }}:
             {{- item.test_playground_tag|d(test_playground_tag) }}"
     name: "{{ item.inventory_hostname }}"
-    capabilities:
-      - SYS_ADMIN
+    privileged: true
     state: "{{ item.test_playground_state|d(test_playground_state) }}"
     volumes: /sys/fs/cgroup:/sys/fs/cgroup:ro
     tmpfs:
