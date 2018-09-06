@@ -6,6 +6,6 @@ RUN yum -y install \
     sudo \
   && systemctl mask systemd-nologin \
   && yum clean all \
-  && rm -rf /var/cache/yum \
+  && rm -rf /var/cache/yum
 RUN useradd -mG wheel privileged \
   && useradd -m unprivileged
