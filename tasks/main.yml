@@ -12,6 +12,10 @@
     privileged: true
     state: "{{ item.test_playground_state|d(test_playground_state) }}"
     volumes: /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
   loop: "{{
     query('inventory_hostnames', test_playground_hosts)|
     map('extract', hostvars)|list

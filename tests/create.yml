@@ -7,3 +7,25 @@
     - name: detected operating system
       debug:
         msg: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
+
+- hosts: test-playground
+  tasks:
+    # Debian 8 and Ubuntu 16.04 need this
+    - name: update apt cache
+      apt:
+        update_cache: true
+      when:
+        - ansible_pkg_mgr == 'apt'
+        - test_playground_round|d(1)|int == 1
+
+    # Install and start some service to test init system
+    - name: install ssh server
+      package:
+        name: openssh-server
+        state: present
+
+    - name: start sshd service
+      service:
+        enabled: true
+        name: sshd
+        state: started

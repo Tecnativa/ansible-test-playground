@@ -12,5 +12,6 @@ script:
   - docker container run --rm -it
       -v /var/run/docker.sock:/var/run/docker.sock:ro
       -v $(pwd):/role:ro
+      -e ANSIBLE_VERBOSITY=1
       tecnativa/ansible-test-playground:lifecycle
       create.yml destroy.yml
