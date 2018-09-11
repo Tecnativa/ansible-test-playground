@@ -4,12 +4,32 @@
     msg: test playground hosts must have ansible_connection=docker
   loop: "{{ query('inventory_hostnames', test_playground_hosts) }}"
 
+- name: create test playground networks
+  docker_network:
+    name: "{{ item.name }}"
+    state: present
+  loop: &network_loop "{{
+    test_playground_networks|
+    union(
+      query('inventory_hostnames', test_playground_hosts)|
+      map('extract', hostvars)|
+      selectattr('test_playground_networks', 'defined')|
+      map(attribute='test_playground_networks')|
+      list
+    )|
+    unique
+  }}"
+  when:
+    - test_playground_state != 'absent'
+
 - name: enforce test playground container state
   docker_container:
     image: "{{ item.test_playground_image|d(test_playground_image) }}:
             {{- item.test_playground_tag|d(test_playground_tag) }}"
     name: "{{ item.inventory_hostname }}"
+    networks: "{{ item.test_playground_networks|d(test_playground_networks) }}"
     privileged: true
+    purge_networks: true
     state: "{{ item.test_playground_state|d(test_playground_state) }}"
     volumes: /sys/fs/cgroup:/sys/fs/cgroup:ro
     tmpfs:
@@ -20,3 +40,11 @@
     query('inventory_hostnames', test_playground_hosts)|
     map('extract', hostvars)|list
   }}"
+
+- name: delete test playground networks
+  docker_network:
+    name: "{{ item.name }}"
+    state: absent
+  loop: *network_loop
+  when:
+    - test_playground_state == 'absent'
