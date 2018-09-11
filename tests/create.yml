@@ -18,6 +18,18 @@
         - ansible_pkg_mgr == 'apt'
         - test_playground_round|d(1)|int == 1
 
+    - name: install ping
+      package:
+        name: iputils-ping
+        state: present
+      when:
+        - ansible_os_family == 'Debian'
+
+    - name: test connectivity among nodes
+      command: ping -c 1 {{ item|quote }}
+      changed_when: false
+      loop: "{{ ansible_play_hosts }}"
+
     # Install and start some service to test init system
     - name: install ssh server
       package:

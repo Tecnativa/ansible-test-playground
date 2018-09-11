@@ -5,6 +5,10 @@ test_playground_hosts: test-playground
 # Docker image to deploy
 test_playground_image: tecnativa/ansible-test-playground
 
+# Docker network where to join the node; needed to enable interoperability
+test_playground_networks:
+  - name: ansible_test_playground
+
 # Set to 'absent' to destroy the playground
 test_playground_state: started
 
