@@ -27,7 +27,12 @@
     image: "{{ item.test_playground_image|d(test_playground_image) }}:
             {{- item.test_playground_tag|d(test_playground_tag) }}"
     name: "{{ item.inventory_hostname }}"
-    networks: "{{ item.test_playground_networks|d(test_playground_networks) }}"
+    # HACK https://github.com/ansible/ansible/issues/45486
+    networks: "{{
+      item.test_playground_networks|d(test_playground_networks)
+      if item.test_playground_state|d(test_playground_state) != 'absent'
+      else []
+     }}"
     privileged: true
     purge_networks: true
     state: "{{ item.test_playground_state|d(test_playground_state) }}"
