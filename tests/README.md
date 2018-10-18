@@ -11,7 +11,7 @@ Go see each one of the files. They are short and easy to understand.
 1. A `requirements.yml` file with, at least:
 
    ```yaml
-   - src: yajo.ansible_test_playground
+   - src: tecnativa.ansible_test_playground
    ```
 
    It will usually be found in `tests/requirements.yml`.
@@ -47,7 +47,7 @@ Use a playbook similar to this to test what happens when you apply your role.
 # Start by creating the playground
 - hosts: localhost
   roles:
-    - role: yajo.ansible_test_playground
+    - role: tecnativa.ansible_test_playground
 
 # The playground now exists, so you can test your own role
 - hosts: test-playground
@@ -75,7 +75,7 @@ This simply destroys the testing playground once you finished playing with it:
 ```yaml
 - hosts: test-playground-controller
   roles:
-    - role: yajo.ansible_test_playground
+    - role: tecnativa.ansible_test_playground
       vars:
         test_playground_state: absent
 ```
