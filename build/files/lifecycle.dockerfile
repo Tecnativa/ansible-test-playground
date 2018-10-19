@@ -24,6 +24,7 @@ RUN apk --no-cache add -t .build \
     libffi-dev \
     openssl-dev \
     python3-dev \
+  && pip3 install --upgrade pip \
   && pip3 --no-cache-dir install ansible docker \
   && apk del .build
 COPY lifecycle /usr/local/bin/lifecycle
