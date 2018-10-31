@@ -36,7 +36,9 @@
     privileged: true
     purge_networks: true
     state: "{{ item.test_playground_state|d(test_playground_state) }}"
-    volumes: /sys/fs/cgroup:/sys/fs/cgroup:ro
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /tmp/{{ item.inventory_hostname }}:/tmp/{{ item.inventory_hostname }}
     tmpfs:
       - /run
       - /run/lock
@@ -46,10 +48,15 @@
     map('extract', hostvars)|list
   }}"
 
-- name: delete test playground networks
-  docker_network:
-    name: "{{ item.name }}"
-    state: absent
-  loop: *network_loop
-  when:
-    - test_playground_state == 'absent'
+- when: test_playground_state == 'absent'
+  block:
+    - name: delete shared absolute folder
+      file:
+        path: /tmp/{{ item.inventory_hostname }}
+        state: absent
+
+    - name: delete test playground networks
+      docker_network:
+        name: "{{ item.name }}"
+        state: absent
+      loop: *network_loop

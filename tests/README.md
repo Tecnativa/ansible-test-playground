@@ -32,6 +32,20 @@ server1 test_playground_tag=ubuntu-18.04
 ansible_connection=docker
 ```
 
+### Shared absolute path
+
+When using privileged containers to mimic virtual machine behaviors, sometimes
+you will need to test things such as mounting loop devices.
+
+To be able to mount a loop device from within a container, the absolute path
+must be the same in the host and in the container.
+
+By sharing a predictable absolute path, there's a place where to store such
+things and make things work.
+
+Summarizing, `server0` will have a `/tmp/server0` folder bind mounted from
+its host's `/tmp/server0` folder. The same for `server1`, etc.
+
 ## The Playbooks
 
 We will use 3 playbooks to properly test your role.
