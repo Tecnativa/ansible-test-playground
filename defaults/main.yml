@@ -15,3 +15,7 @@ test_playground_state: started
 # Use any supported OS tag from
 # https://hub.docker.com/r/tecnativa/ansible-test-playground/tags/
 test_playground_tag: ubuntu-18.04
+
+# Add any volumes definition to containers; see "volumes" in
+# https://docs.ansible.com/ansible/latest/modules/docker_container_module.html
+test_playground_volumes: []
