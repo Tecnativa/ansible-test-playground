@@ -24,6 +24,7 @@
 
 - name: enforce test playground container state
   docker_container:
+    devices: "{{ item.test_playground_devices|d(test_playground_devices) }}"
     image: "{{ item.test_playground_image|d(test_playground_image) }}:
             {{- item.test_playground_tag|d(test_playground_tag) }}"
     name: "{{ item.inventory_hostname }}"
