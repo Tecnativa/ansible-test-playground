@@ -40,7 +40,7 @@ This project is maintained by:
 development, installation, maintenance and hosting services.
 
 [defaults]: https://github.com/Tecnativa/ansible-test-playground/tree/master/defaults/main.yml
-[galaxy]: https://galaxy.ansible.com/yajo/ansible_test_playground
+[galaxy]: https://galaxy.ansible.com/tecnativa/ansible_test_playground
 [inventory]: https://github.com/Tecnativa/ansible-test-playground/tree/master/tests/inventory.cfg
 [Tecnativa]: https://www.tecnativa.com/
 [testdir]: https://github.com/Tecnativa/ansible-test-playground/tree/master/tests
