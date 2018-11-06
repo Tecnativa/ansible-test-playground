@@ -37,7 +37,8 @@
     purge_networks: true
     state: "{{ item.test_playground_state|d(test_playground_state) }}"
     volumes:
-      "{{ ['/sys/fs/cgroup:/sys/fs/cgroup:ro'] + test_playground_volumes }}"
+      "{{ ['/sys/fs/cgroup:/sys/fs/cgroup:ro'] +
+          item.test_playground_volumes|d(test_playground_volumes) }}"
     tmpfs:
       - /run
       - /run/lock
